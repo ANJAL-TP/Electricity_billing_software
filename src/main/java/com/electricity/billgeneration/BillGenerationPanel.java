@@ -3,7 +3,7 @@ package com.electricity.billgeneration;
 import com.electricity.billgeneration.model.BillCalculationResult;
 import com.electricity.billgeneration.model.ConsumerSummary;
 import com.electricity.billgeneration.service.BillService;
-import com.electricity.billgeneration.service.MockBillService;
+import com.electricity.billgeneration.service.JdbcBillService;
 import com.electricity.auth.ui.UIConstants;
 
 import javax.swing.*;
@@ -71,7 +71,7 @@ public class BillGenerationPanel extends JPanel {
     private JButton btnPrintPreview;
 
     public BillGenerationPanel() {
-        this(new MockBillService());
+        this(new JdbcBillService(null));
     }
 
     public BillGenerationPanel(BillService billService) {
@@ -90,7 +90,7 @@ public class BillGenerationPanel extends JPanel {
         mainContent.add(createHeaderPanel());
         mainContent.add(Box.createVerticalStrut(14));
 
-        // 2. Quick Demo Selector Bar
+        // 2. Quick Consumer Selector Bar
         mainContent.add(createQuickSelectBar());
         mainContent.add(Box.createVerticalStrut(14));
 
@@ -177,7 +177,7 @@ public class BillGenerationPanel extends JPanel {
         lblHint.setForeground(UIConstants.PRIMARY_NAVY);
         bar.add(lblHint);
 
-        for (ConsumerSummary cs : billService.getSampleConsumers()) {
+        for (ConsumerSummary cs : billService.getActiveConsumers()) {
             JButton chip = new JButton(cs.consumerId() + " (" + cs.fullName().split(" ")[0] + ")");
             UIConstants.styleButton(chip, new Color(241, 245, 249), UIConstants.TEXT_DARK);
             chip.addActionListener(e -> {

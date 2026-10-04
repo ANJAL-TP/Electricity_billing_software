@@ -69,7 +69,7 @@ public class MockBillService implements BillService {
     }
 
     @Override
-    public List<ConsumerSummary> getSampleConsumers() {
+    public List<ConsumerSummary> getActiveConsumers() {
         return new ArrayList<>(mockConsumerDb.values());
     }
 

@@ -42,7 +42,7 @@ class MockBillServiceTest {
     @Test
     @DisplayName("Should return all seeded sample consumers")
     void testGetSampleConsumers() {
-        List<ConsumerSummary> samples = billService.getSampleConsumers();
+        List<ConsumerSummary> samples = billService.getActiveConsumers();
         assertNotNull(samples);
         assertTrue(samples.size() >= 4);
     }

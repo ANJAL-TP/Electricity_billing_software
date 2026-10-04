@@ -18,7 +18,7 @@ public interface BillService {
     Optional<ConsumerSummary> findConsumerById(String consumerId);
 
     /** Returns active registered consumers for UI selection. */
-    List<ConsumerSummary> getSampleConsumers();
+    List<ConsumerSummary> getActiveConsumers();
 
     /**
      * Calculates the bill line items based on readings and tariff category.

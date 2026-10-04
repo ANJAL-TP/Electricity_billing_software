@@ -1,12 +1,18 @@
 package com.electricity.admindashboard;
 
 import com.electricity.admindashboard.model.AdminProfile;
+import com.electricity.admindashboard.service.MockAdminDashboardService;
+import com.electricity.admindashboard.service.MockBillHistoryService;
+import com.electricity.admindashboard.service.MockConsumerManagementService;
+import com.electricity.admindashboard.service.MockPaymentManagementService;
+import com.electricity.admindashboard.service.MockReportsService;
+import com.electricity.billgeneration.service.MockBillService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
-import java.awt.*;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,7 +31,16 @@ class AdminDashboardTest {
                     "Quality Assurance",
                     "Today, 10:00 AM"
             );
-            dashboard = new AdminDashboard(profile);
+            dashboard = new AdminDashboard(
+                    profile,
+                    new MockAdminDashboardService(),
+                    new MockConsumerManagementService(),
+                    new MockBillService(),
+                    new MockBillHistoryService(),
+                    new MockPaymentManagementService(),
+                    new MockReportsService(),
+                    null
+            );
         });
     }
 

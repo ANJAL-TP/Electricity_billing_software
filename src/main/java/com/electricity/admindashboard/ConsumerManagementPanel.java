@@ -2,7 +2,7 @@ package com.electricity.admindashboard;
 
 import com.electricity.admindashboard.model.ManagedConsumer;
 import com.electricity.admindashboard.service.ConsumerManagementService;
-import com.electricity.admindashboard.service.MockConsumerManagementService;
+import com.electricity.admindashboard.service.JdbcConsumerManagementService;
 import com.electricity.auth.ui.UIConstants;
 
 import javax.swing.*;
@@ -36,7 +36,7 @@ public class ConsumerManagementPanel extends JPanel {
     private JButton toggleButton;
 
     public ConsumerManagementPanel() {
-        this(new MockConsumerManagementService());
+        this(new JdbcConsumerManagementService(null));
     }
 
     public ConsumerManagementPanel(ConsumerManagementService consumerService) {

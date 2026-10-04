@@ -46,7 +46,7 @@ public final class JdbcBillService implements BillService {
     }
 
     @Override
-    public List<ConsumerSummary> getSampleConsumers() {
+    public List<ConsumerSummary> getActiveConsumers() {
         String sql = consumerSelect() + " WHERE c.status = 'ACTIVE' ORDER BY c.consumer_id";
         List<ConsumerSummary> consumers = new ArrayList<>();
         try (Connection connection = DatabaseConnection.getConnection();

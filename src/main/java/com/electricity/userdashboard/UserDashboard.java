@@ -3,8 +3,8 @@ package com.electricity.userdashboard;
 import com.electricity.auth.ui.UIConstants;
 import com.electricity.userdashboard.model.ConsumerBill;
 import com.electricity.userdashboard.model.ConsumerProfile;
-import com.electricity.userdashboard.service.MockUserDashboardService;
-import com.electricity.userdashboard.service.MockPaymentService;
+import com.electricity.userdashboard.service.JdbcUserDashboardService;
+import com.electricity.userdashboard.service.JdbcPaymentService;
 import com.electricity.userdashboard.service.PaymentService;
 import com.electricity.userdashboard.service.UserDashboardService;
 
@@ -30,15 +30,15 @@ public class UserDashboard extends JFrame implements UserSidebarPanel.Navigation
     private final JPanel content = new JPanel(cardLayout);
 
     public UserDashboard() {
-        this(new MockUserDashboardService(), new MockPaymentService(), "user", null);
+        this(new JdbcUserDashboardService(), new JdbcPaymentService(), "user", null);
     }
 
     public UserDashboard(String username, Runnable logoutCallback) {
-        this(new MockUserDashboardService(), new MockPaymentService(), username, logoutCallback);
+        this(new JdbcUserDashboardService(), new JdbcPaymentService(), username, logoutCallback);
     }
 
     public UserDashboard(UserDashboardService service, String username, Runnable logoutCallback) {
-        this(service, new MockPaymentService(), username, logoutCallback);
+        this(service, new JdbcPaymentService(), username, logoutCallback);
     }
 
     public UserDashboard(

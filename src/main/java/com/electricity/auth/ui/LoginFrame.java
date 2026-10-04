@@ -8,7 +8,6 @@ import com.electricity.admindashboard.service.JdbcConsumerManagementService;
 import com.electricity.admindashboard.service.JdbcBillHistoryService;
 import com.electricity.admindashboard.service.JdbcPaymentManagementService;
 import com.electricity.admindashboard.service.JdbcReportsService;
-import com.electricity.admindashboard.service.MockAdminDashboardService;
 import com.electricity.auth.model.AuthResult;
 import com.electricity.auth.model.UserRole;
 import com.electricity.auth.service.AuthService;
@@ -17,7 +16,6 @@ import com.electricity.billgeneration.service.JdbcBillService;
 import com.electricity.userdashboard.UserDashboard;
 import com.electricity.userdashboard.service.JdbcPaymentService;
 import com.electricity.userdashboard.service.JdbcUserDashboardService;
-import com.electricity.userdashboard.service.MockUserDashboardService;
 import com.electricity.userdashboard.service.UserDashboardService;
 
 import javax.swing.*;
@@ -57,7 +55,7 @@ public class LoginFrame extends JFrame {
     }
 
     public LoginFrame(AuthService authService) {
-        this(authService, new MockAdminDashboardService(), new MockUserDashboardService());
+        this(authService, new JdbcAdminDashboardService(), new JdbcUserDashboardService());
     }
 
     public LoginFrame(

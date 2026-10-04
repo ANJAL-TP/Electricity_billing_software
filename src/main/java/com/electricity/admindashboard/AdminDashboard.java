@@ -2,18 +2,18 @@ package com.electricity.admindashboard;
 
 import com.electricity.billgeneration.BillGenerationPanel;
 import com.electricity.billgeneration.service.BillService;
-import com.electricity.billgeneration.service.MockBillService;
+import com.electricity.billgeneration.service.JdbcBillService;
 import com.electricity.admindashboard.model.AdminProfile;
 import com.electricity.admindashboard.service.AdminDashboardService;
 import com.electricity.admindashboard.service.ConsumerManagementService;
 import com.electricity.admindashboard.service.BillHistoryService;
 import com.electricity.admindashboard.service.PaymentManagementService;
 import com.electricity.admindashboard.service.ReportsService;
-import com.electricity.admindashboard.service.MockConsumerManagementService;
-import com.electricity.admindashboard.service.MockAdminDashboardService;
-import com.electricity.admindashboard.service.MockBillHistoryService;
-import com.electricity.admindashboard.service.MockPaymentManagementService;
-import com.electricity.admindashboard.service.MockReportsService;
+import com.electricity.admindashboard.service.JdbcConsumerManagementService;
+import com.electricity.admindashboard.service.JdbcAdminDashboardService;
+import com.electricity.admindashboard.service.JdbcBillHistoryService;
+import com.electricity.admindashboard.service.JdbcPaymentManagementService;
+import com.electricity.admindashboard.service.JdbcReportsService;
 import com.electricity.auth.ui.UIConstants;
 
 import javax.swing.*;
@@ -52,15 +52,15 @@ public class AdminDashboard extends JFrame implements SidebarPanel.NavigationLis
     private ReportsPanel reportsPanel;
 
     public AdminDashboard() {
-        this(new MockAdminDashboardService().getAdminProfile("admin"), new MockAdminDashboardService(), null);
+        this(new JdbcAdminDashboardService().getAdminProfile("admin"), new JdbcAdminDashboardService(), null);
     }
 
     public AdminDashboard(AdminProfile adminProfile) {
-        this(adminProfile, new MockAdminDashboardService(), null);
+        this(adminProfile, new JdbcAdminDashboardService(), null);
     }
 
     public AdminDashboard(AdminProfile adminProfile, Runnable logoutCallback) {
-        this(adminProfile, new MockAdminDashboardService(), logoutCallback);
+        this(adminProfile, new JdbcAdminDashboardService(), logoutCallback);
     }
 
     public AdminDashboard(
@@ -68,8 +68,12 @@ public class AdminDashboard extends JFrame implements SidebarPanel.NavigationLis
             AdminDashboardService dashboardService,
             Runnable logoutCallback
     ) {
-        this(adminProfile, dashboardService, new MockConsumerManagementService(), new MockBillService(),
-                new MockBillHistoryService(), new MockPaymentManagementService(), new MockReportsService(), logoutCallback);
+        this(adminProfile, dashboardService,
+                new JdbcConsumerManagementService(adminProfile == null ? "admin" : adminProfile.username()),
+                new JdbcBillService(adminProfile == null ? "admin" : adminProfile.username()),
+                new JdbcBillHistoryService(),
+                new JdbcPaymentManagementService(adminProfile == null ? "admin" : adminProfile.username()),
+                new JdbcReportsService(), logoutCallback);
     }
 
     public AdminDashboard(
@@ -80,7 +84,9 @@ public class AdminDashboard extends JFrame implements SidebarPanel.NavigationLis
             Runnable logoutCallback
     ) {
         this(adminProfile, dashboardService, consumerManagementService, billService,
-                new MockBillHistoryService(), new MockPaymentManagementService(), new MockReportsService(), logoutCallback);
+                new JdbcBillHistoryService(),
+                new JdbcPaymentManagementService(adminProfile == null ? "admin" : adminProfile.username()),
+                new JdbcReportsService(), logoutCallback);
     }
 
     public AdminDashboard(
